@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const { Schema } = mongoose;
 
@@ -6,6 +7,7 @@ const userSchema = new Schema({
     username: {
         type: String,
         required: true,
+        index: { unique: true },
     },
     password: {
         type: String,
@@ -37,6 +39,18 @@ const userSchema = new Schema({
         food: String,
         food_quantity: Number,
     }],
+});
+
+// hash user password before saving into database
+userSchema.pre('save', async function save(next) {
+    try {
+        const saltRounds = 10;
+        const hash = await bcrypt.hash(this.password, saltRounds);
+        this.password = hash;
+        next();
+    } catch (error) {
+        next(error);
+    }
 });
 
 module.exports = mongoose.model('User', userSchema);
