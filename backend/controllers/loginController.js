@@ -16,7 +16,12 @@ exports.loginUser = (req, res) => {
             if (!bcrypt.compareSync(password, response.password)) {
                 return res.status(400).send({ message: appErrors.INVALID_PASSWORD });
             }
+            req.session.userId = response._id;
+            req.session.username = response.username;
+            req.session.name = response.name;
             return res.send({ loginSuccesful: true });
         })
         .catch(() => res.status(500).send({ error: appErrors.UNEXPECTED_ERROR }));
 };
+
+exports.logoutUser = (req, res) => req.session.destroy(() => res.send({ logoutSuccessful: true }));

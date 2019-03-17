@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const port = process.env.PORT || 3001;
 
@@ -21,6 +23,13 @@ mongoose.connect('mongodb+srv://joseche93:21044909@duckscluster-rovjz.mongodb.ne
     .catch((error) => {
         console.log(error);
     });
+
+app.use(session({
+    secret: 'secretDucks',
+    saveUninitialized: false,
+    resave: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+}));
 
 app.use(registerRoutes);
 app.use(loginRoutes);
