@@ -1,0 +1,12 @@
+{
+    "user": {
+        "id": "",
+        "username": "",
+        "name": ""
+    },
+    "alert": {
+        "styleClass": "",
+        "description": ""
+    },
+    "ducksFeedingActivities": []
+}
