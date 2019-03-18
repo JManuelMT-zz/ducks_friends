@@ -13,13 +13,15 @@ exports.loginUser = (req, res) => {
             if (!response) {
                 return res.status(400).send({ error: appErrors.INVALID_EMAIL });
             }
-            if (!bcrypt.compareSync(password, response.password)) {
-                return res.status(400).send({ message: appErrors.INVALID_PASSWORD });
-            }
-            req.session.userId = response._id;
-            req.session.username = response.username;
-            req.session.name = response.name;
-            return res.send({ loginSuccesful: true });
+            return bcrypt.compare(password, response.password).then((passResponse) => {
+                if (!passResponse) {
+                    return res.status(400).send({ message: appErrors.INVALID_PASSWORD });
+                }
+                req.session.userId = response._id;
+                req.session.username = response.username;
+                req.session.name = response.name;
+                return res.send({ loginSuccesful: true });
+            }).catch(() => res.status(500).send({ error: appErrors.UNEXPECTED_ERROR }));
         })
         .catch(() => res.status(500).send({ error: appErrors.UNEXPECTED_ERROR }));
 };

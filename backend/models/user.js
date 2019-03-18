@@ -44,6 +44,9 @@ const userSchema = new Schema({
 // hash user password before saving into database
 userSchema.pre('save', async function save(next) {
     try {
+        if (!this.isModified('password')) {
+            next();
+        }
         const saltRounds = 10;
         const hash = await bcrypt.hash(this.password, saltRounds);
         this.password = hash;
