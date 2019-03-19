@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const cors = require('cors');
 const MongoStore = require('connect-mongo')(session);
 
 const port = process.env.PORT || 3001;
@@ -11,7 +12,7 @@ const loginRoutes = require('./routes/loginRoutes');
 const activitiesRoutes = require('./routes/activitiesRoutes');
 
 const app = express();
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

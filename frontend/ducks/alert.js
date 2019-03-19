@@ -1,16 +1,16 @@
-const initialState = require('../config/initialState.json').alert;
+import { alert as initialState } from '../config/initialState.json';
 
 const ACTION_TYPES = {
     SET_ALERT: 'SET_ALERT',
     CLEAR_ALERT: 'CLEAR_ALERT',
 };
 
-const setAlert = alert => dispatch => (
-    dispatch({
-        type: ACTION_TYPES.SET_ALERT,
-        alert,
-    })
-);
+const setAlert = alert => ({
+    type: ACTION_TYPES.SET_ALERT,
+    alert,
+});
+
+const clearAlert = () => ({ type: ACTION_TYPES.CLEAR_ALERT });
 
 export const alertReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -30,4 +30,5 @@ export const alertReducer = (state = initialState, action) => {
 
 export const actions = {
     setAlert,
+    clearAlert,
 };

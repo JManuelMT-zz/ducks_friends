@@ -1,4 +1,4 @@
-const initialState = require('../config/initialState.json').ducksFeedingActivities;
+import { ducksFeedingActivities as initialState } from '../config/initialState.json';
 
 const ACTION_TYPES = {
     SET_ACTIVITIES: 'SET_ACTIVITIES',

@@ -3,6 +3,8 @@ const User = require('../models/user');
 const appErrors = require('../../constants/appErrors');
 
 exports.loginUser = (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     const {
         username,
         password,
@@ -11,7 +13,7 @@ exports.loginUser = (req, res) => {
     User.findOne({ username }).exec()
         .then((response) => {
             if (!response) {
-                return res.status(400).send({ error: appErrors.INVALID_EMAIL });
+                return res.status(500).send({ error: appErrors.INCORRECT_EMAIL });
             }
             return bcrypt.compare(password, response.password).then((passResponse) => {
                 if (!passResponse) {

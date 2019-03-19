@@ -8,5 +8,6 @@
         "styleClass": "",
         "description": ""
     },
+    "loading": false,
     "ducksFeedingActivities": []
 }
