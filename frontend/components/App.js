@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import Login from './login';
 import Register from './registerUser';
+import PrivateRoute from './privateRoute';
 import RegisterActivity from './registerDuckFeedingActivity';
 import Home from './home';
 import Alert from './alert';
 import Spinner from './spinner';
 import history from '../../utils/history';
+import ENDPOINT from '../../constants/endpoint';
+import { actions as userActions } from '../ducks/user';
+
 
 class App extends Component {
-    componentWillMount() {
-
+    componentDidMount() {
+        axios.get(`${ENDPOINT}/isLoggedIn`, {
+            withCredentials: true,
+        })
+            .then((response) => {
+                if (response.data.isLoggedIn) {
+                    const { setUser } = this.props;
+                    setUser(response.data);
+                }
+            });
     }
 
     render() {
@@ -31,6 +44,7 @@ class App extends Component {
                                 <Route path="/login" component={Login} />
                                 <Route path="/register" component={Register} />
                                 <Route path="/registerActivity" component={RegisterActivity} />
+                                <PrivateRoute component={Home} />
                                 <Route path="/home" component={Home} />
                             </Switch>
                         </Router>
@@ -44,8 +58,13 @@ class App extends Component {
 App.propTypes = {
     alert: PropTypes.shape({}),
     loading: PropTypes.bool,
+    setUser: PropTypes.func,
 };
 
-const mapStateToProps = ({ alert, loading }) => ({ alert, loading });
+const mapStateToProps = ({ alert, loading, user }) => ({ alert, loading, user });
 
-export default connect(mapStateToProps, null)(App);
+const mapDispatchToProps = dispatch => ({
+    setUser: user => dispatch(userActions.setUser(user)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -22,10 +22,33 @@ exports.loginUser = (req, res) => {
                 req.session.userId = response._id;
                 req.session.username = response.username;
                 req.session.name = response.name;
-                return res.send({ loginSuccesful: true });
+
+                return res.send({
+                    loginSuccesful: true,
+                    userId: response._id,
+                    username: response.username,
+                    name: response.name,
+                });
             }).catch(() => res.status(500).send({ error: appErrors.UNEXPECTED_ERROR }));
         })
         .catch(() => res.status(500).send({ error: appErrors.UNEXPECTED_ERROR }));
 };
 
 exports.logoutUser = (req, res) => req.session.destroy(() => res.send({ logoutSuccessful: true }));
+
+exports.isLoggedIn = (req, res) => {
+    const {
+        userId,
+        username,
+        name,
+    } = req.session;
+    if (userId) {
+        return res.send({
+            isLoggedIn: true,
+            userId,
+            username,
+            name,
+        });
+    }
+    return res.send({ isLoggedIn: false });
+};

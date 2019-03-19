@@ -4,6 +4,7 @@ import ENDPOINT from '../../constants/endpoint';
 import { actions as alertActions } from './alert';
 import { actions as spinnerActions } from './loading';
 import { ALERT_ERROR } from '../../constants/alertStyles';
+import { UNEXPECTED_ERROR } from '../../constants/appErrors';
 import history from '../../utils/history';
 
 const ACTION_TYPES = {
@@ -24,8 +25,19 @@ const doLogin = (username, password) => (dispatch) => {
     })
         .then((response) => {
             dispatch(spinnerActions.toggleLoading());
-            dispatch(setUser(response));
+            dispatch(setUser(response.data));
+            localStorage.setItem('isLoggedIn', true);
             history.push('/home');
+            if (response.data.loginSuccesful) {
+                dispatch(setUser(response.data));
+                history.push('/home');
+            } else {
+                const alert = {
+                    styleClass: ALERT_ERROR,
+                    description: UNEXPECTED_ERROR,
+                };
+                dispatch(alertActions.setAlert(alert));
+            }
         })
         .catch((error) => {
             dispatch(spinnerActions.toggleLoading());

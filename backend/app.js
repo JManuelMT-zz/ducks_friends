@@ -5,6 +5,8 @@ const session = require('express-session');
 const cors = require('cors');
 const MongoStore = require('connect-mongo')(session);
 
+const ENDPOINT = 'http://localhost:3000';
+
 const port = process.env.PORT || 3001;
 
 const registerRoutes = require('./routes/registerRoutes');
@@ -12,9 +14,6 @@ const loginRoutes = require('./routes/loginRoutes');
 const activitiesRoutes = require('./routes/activitiesRoutes');
 
 const app = express();
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb+srv://joseche93:21044909@duckscluster-rovjz.mongodb.net/test?retryWrites=true',
@@ -26,10 +25,19 @@ mongoose.connect('mongodb+srv://joseche93:21044909@duckscluster-rovjz.mongodb.ne
         console.log(error);
     });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors({
+    credentials: true,
+    origin: true,
+}));
+
 app.use(session({
     secret: 'secretDucks',
     saveUninitialized: false,
     resave: false,
+    cookie: { secure: false },
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
 }));
 
