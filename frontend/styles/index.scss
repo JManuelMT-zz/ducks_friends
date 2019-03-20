@@ -20,8 +20,28 @@ div {
     height: 140px;
 }
 
+.btn_header{
+    color: $white !important;
+    font-size: 20px !important;
+}
+
+.btn_header:hover {
+    text-decoration: underline !important;
+}
+
+.header_name {
+    color: $white;
+    margin-top: 10px;
+    font-weight: 300;
+}
+
 .logo_register {
     height: 80px;
+    float: left;
+}
+
+.logo_home {
+    height: 50px;
     float: left;
 }
 

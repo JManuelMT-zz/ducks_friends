@@ -9,6 +9,7 @@ import PrivateRoute from './privateRoute';
 import RegisterActivity from './registerDuckFeedingActivity';
 import Home from './home';
 import Alert from './alert';
+import Header from './header';
 import Spinner from './spinner';
 import history from '../../utils/history';
 import ENDPOINT from '../../constants/endpoint';
@@ -34,20 +35,26 @@ class App extends Component {
             loading,
         } = this.props;
         return (
-            <div className="container">
-                <Spinner loading={loading} />
-                <div className="row">
-                    <div className="col-sm-12">
-                        <Alert alertMessage={alert.description} alertStyle={alert.styleClass} />
-                        <Router history={history}>
-                            <Switch>
-                                <Route path="/login" component={Login} />
-                                <Route path="/register" component={Register} />
-                                <Route path="/registerActivity" component={RegisterActivity} />
-                                <Route path="/home" component={Home} />
-                                <PrivateRoute component={Home} />
-                            </Switch>
-                        </Router>
+            <div>
+                {
+                    window.location.pathname === '/home'
+                    || window.location.pathname === '/registerActivity' ? <Header /> : ''
+                }
+                <div className="container">
+                    <Spinner loading={loading} />
+                    <div className="row">
+                        <div className="col-sm-12">
+                            <Alert alertMessage={alert.description} alertStyle={alert.styleClass} />
+                            <Router history={history}>
+                                <Switch>
+                                    <Route path="/login" component={Login} />
+                                    <Route path="/register" component={Register} />
+                                    <Route path="/registerActivity" component={RegisterActivity} />
+                                    <Route path="/home" component={Home} />
+                                    <PrivateRoute component={Home} />
+                                </Switch>
+                            </Router>
+                        </div>
                     </div>
                 </div>
             </div>

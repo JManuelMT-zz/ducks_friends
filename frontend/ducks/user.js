@@ -49,6 +49,34 @@ const doLogin = (username, password) => (dispatch) => {
         });
 };
 
+const logout = () => (dispatch) => {
+    dispatch(spinnerActions.toggleLoading());
+    axios.get(`${ENDPOINT}/logoutUser`, { withCredentials: true })
+        .then(() => {
+            const user = {
+                isLoggedIn: false,
+                id: '',
+                username: '',
+                name: '',
+            };
+            dispatch({
+                type: ACTION_TYPES.SET_USER,
+                user,
+            });
+            localStorage.removeItem('isLoggedIn');
+            history.push('/login');
+            dispatch(spinnerActions.toggleLoading());
+        })
+        .catch(() => {
+            const alert = {
+                styleClass: ALERT_ERROR,
+                description: UNEXPECTED_ERROR,
+            };
+            dispatch(alertActions.setAlert(alert));
+            dispatch(spinnerActions.toggleLoading());
+        });
+};
+
 export const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case ACTION_TYPES.SET_USER:
@@ -63,4 +91,5 @@ export const userReducer = (state = initialState, action) => {
 export const actions = {
     setUser,
     doLogin,
+    logout,
 };
