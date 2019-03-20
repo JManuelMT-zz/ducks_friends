@@ -6,6 +6,7 @@ import { actions } from '../ducks/user';
 import Error from './error';
 import { EMAIL_REQUIRED, PASSWORD_REQUIRED, INVALID_EMAIL } from '../../constants/appErrors';
 import validateEmail from '../../utils/validateEmail';
+import { actions as alertActions } from '../ducks/alert';
 
 class Login extends Component {
     constructor(props) {
@@ -23,6 +24,8 @@ class Login extends Component {
     }
 
     handleChange(e) {
+        const { clearAlert } = this.props;
+        clearAlert();
         if (e.target.name === 'username') {
             this.setState({
                 username: e.target.value,
@@ -111,14 +114,12 @@ class Login extends Component {
 
 Login.propTypes = {
     doLogin: PropTypes.func,
-}
-
-const mapStateToProps = state => ({
-
-});
+    clearAlert: PropTypes.func,
+};
 
 const mapDispatchToProps = dispatch => ({
     doLogin: (username, password) => dispatch(actions.doLogin(username, password)),
+    clearAlert: () => dispatch(alertActions.clearAlert()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);

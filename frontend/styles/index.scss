@@ -20,6 +20,11 @@ div {
     height: 140px;
 }
 
+.logo_register {
+    height: 80px;
+    float: left;
+}
+
 .center_logo {
     margin-left: auto;
     margin-right: auto;
@@ -31,14 +36,33 @@ div {
     color: $gray;
 }
 
+.register_title {
+    position: relative;
+    top: 15px;
+    left: 20px;
+}
+
+.link_center {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+}
+
 .error {
     color: $red;
     font-size: 12px;
     font-weight: bold;
 }
 
+.vertical_space {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .alert_space {
     margin: 30px;
+    margin-bottom: 0px;
 }
 
 .spinner {
@@ -48,7 +72,7 @@ div {
     z-index: 2;
     height: 100vh;
     width: 100%;
-    background: rgba(0, 0, 0, .6);
+    background: rgba(36, 36, 36, 0.4);
 }
 
 .loader {

@@ -14,7 +14,6 @@ import history from '../../utils/history';
 import ENDPOINT from '../../constants/endpoint';
 import { actions as userActions } from '../ducks/user';
 
-
 class App extends Component {
     componentDidMount() {
         axios.get(`${ENDPOINT}/isLoggedIn`, {
@@ -24,6 +23,7 @@ class App extends Component {
                 if (response.data.isLoggedIn) {
                     const { setUser } = this.props;
                     setUser(response.data);
+                    history.push('/home');
                 }
             });
     }
@@ -44,8 +44,8 @@ class App extends Component {
                                 <Route path="/login" component={Login} />
                                 <Route path="/register" component={Register} />
                                 <Route path="/registerActivity" component={RegisterActivity} />
-                                <PrivateRoute component={Home} />
                                 <Route path="/home" component={Home} />
+                                <PrivateRoute component={Home} />
                             </Switch>
                         </Router>
                     </div>

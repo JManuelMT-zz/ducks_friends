@@ -8,4 +8,5 @@ module.exports = {
     UNEXPECTED_ERROR: 'Unexpected error, please try again',
     EMPTY_ACTIVITIES: 'There are not ducks feeding activities yet',
     FORBIDDEN_ACCESS: 'you have not access to this service',
+    REGISTER_ERROR: 'Please, complete all the information',
 };

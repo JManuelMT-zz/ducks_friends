@@ -12,6 +12,7 @@ const port = process.env.PORT || 3001;
 const registerRoutes = require('./routes/registerRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const activitiesRoutes = require('./routes/activitiesRoutes');
+const locationsRoutes = require('./routes/locationsRoutes');
 
 const app = express();
 
@@ -44,3 +45,4 @@ app.use(session({
 app.use(registerRoutes);
 app.use(loginRoutes);
 app.use(activitiesRoutes);
+app.use(locationsRoutes);
