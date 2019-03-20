@@ -36,7 +36,6 @@ exports.registerFeedingActivity = (req, res) => {
         food_quantity: req.body.foodQuantity,
     };
     const { userId } = req.body;
-    console.log('lamuerte', userId)
     User.findById(userId).exec()
         .then((user) => {
             user.ducks_feeding.push(duckFeedingActivity);
