@@ -54,7 +54,7 @@ class Register extends Component {
         clearAlert();
         const countryCode = e.target.value;
         this.setState({
-            selectedCountry: countryCode,
+            selectedCountry: e.target.name,
         });
         const { toggleLoading } = this.props;
         toggleLoading();
@@ -152,9 +152,9 @@ class Register extends Component {
                         alert.description = UNEXPECTED_ERROR;
                         setAlert(alert);
                     }
-                }).catch((e) => {
+                }).catch((error) => {
                     alert.styleClass = ALERT_ERROR;
-                    alert.description = e.response.data.error;
+                    alert.description = error.response.data.error;
                     setAlert(alert);
                 });
         }
@@ -245,7 +245,7 @@ class Register extends Component {
                             </option>
                             {
                                 countries.map(country => (
-                                    <option key={country.code} value={country.code}>
+                                    <option key={country.code} name={country.name} value={country.code}>
                                         {country.name}
                                     </option>
                                 ))

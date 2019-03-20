@@ -5,8 +5,6 @@ const session = require('express-session');
 const cors = require('cors');
 const MongoStore = require('connect-mongo')(session);
 
-const ENDPOINT = 'http://localhost:3000';
-
 const port = process.env.PORT || 3001;
 
 const registerRoutes = require('./routes/registerRoutes');

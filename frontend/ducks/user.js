@@ -19,14 +19,18 @@ const setUser = user => ({
 const doLogin = (username, password) => (dispatch) => {
     dispatch(alertActions.clearAlert());
     dispatch(spinnerActions.toggleLoading());
-    axios.post(`${ENDPOINT}/loginUser`, {
-        username,
-        password,
+    axios({
+        url: `${ENDPOINT}/loginUser`,
+        method: 'post',
+        data: {
+            username,
+            password,
+        },
     })
         .then((response) => {
             dispatch(spinnerActions.toggleLoading());
             dispatch(setUser(response.data));
-            localStorage.setItem('isLoggedIn', true);
+            localStorage.setItem('user', JSON.stringify(response.data));
             history.push('/home');
             if (response.data.loginSuccesful) {
                 dispatch(setUser(response.data));
@@ -50,6 +54,7 @@ const doLogin = (username, password) => (dispatch) => {
 };
 
 const logout = () => (dispatch) => {
+    dispatch(alertActions.clearAlert());
     dispatch(spinnerActions.toggleLoading());
     axios.get(`${ENDPOINT}/logoutUser`, { withCredentials: true })
         .then(() => {

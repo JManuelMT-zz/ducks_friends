@@ -17,16 +17,13 @@ import { actions as userActions } from '../ducks/user';
 
 class App extends Component {
     componentDidMount() {
-        axios.get(`${ENDPOINT}/isLoggedIn`, {
-            withCredentials: true,
-        })
-            .then((response) => {
-                if (response.data.isLoggedIn) {
-                    const { setUser } = this.props;
-                    setUser(response.data);
-                    history.push('/home');
-                }
-            });
+        const userLocal = localStorage.getItem('user');
+        if (userLocal) {
+            const user = JSON.parse(userLocal);
+            const { setUser } = this.props;
+            setUser(user);
+            history.push('/home');
+        }
     }
 
     render() {
