@@ -22,7 +22,7 @@ class App extends Component {
             const user = JSON.parse(userLocal);
             const { setUser } = this.props;
             setUser(user);
-            history.push('/home');
+            // history.push('/home');
         }
     }
 

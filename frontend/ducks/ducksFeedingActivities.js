@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { ducksFeedingActivities as initialState } from '../config/initialState.json';
 import { ALERT_ERROR } from '../../constants/alertStyles';
-import { UNEXPECTED_ERROR } from '../../constants/appErrors';
-import history from '../../utils/history';
 import { actions as alertActions } from './alert';
 import ENDPOINT from '../../constants/endpoint';
 import { actions as spinnerActions } from './loading';
@@ -41,7 +39,7 @@ const getActivities = userId => (dispatch) => {
 export const activitiesReducer = (state = initialState, action) => {
     switch (action.type) {
         case ACTION_TYPES.SET_ACTIVITIES:
-            return [...action.activities];
+            return action.activities;
         default:
             return state;
     }

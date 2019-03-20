@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import TableToExcel from '@linways/table-to-excel';
 import { actions as activitiesActions } from '../ducks/ducksFeedingActivities';
+import { actions as alertActions } from '../ducks/alert';
 
 class Home extends Component {
     componentDidMount() {
         const {
             getActivities,
+            clearAlert,
         } = this.props;
         getActivities();
+        setTimeout(() => {
+            clearAlert();
+        }, 3000);
     }
 
     render() {
@@ -85,9 +91,11 @@ class Home extends Component {
                     <button type="button" onClick={() => getActivities(userId)} className="btn btn-secondary col btn-lg btn_home">
                         My Activities
                     </button>
-                    <button type="button" className="btn btn-outline-primary btn-lg col btn_home">
-                        New activity
-                    </button>
+                    <Link className="col btn_home" to="/registerActivity">
+                        <button to="/registerActivity" type="button" className="btn btn-outline-primary btn-lg">
+                            New activity
+                        </button>
+                    </Link>
                     <button
                         type="button"
                         onClick={() => {
@@ -107,6 +115,7 @@ Home.propTypes = {
     activities: PropTypes.arrayOf(Object),
     getActivities: PropTypes.func,
     userId: PropTypes.string,
+    clearAlert: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -116,6 +125,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getActivities: userId => dispatch(activitiesActions.getActivities(userId)),
+    clearAlert: () => dispatch(alertActions.clearAlert()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
