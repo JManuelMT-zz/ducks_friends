@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import axios from 'axios';
-import ENDPOINT from '../../constants/endpoint';
-import { REGISTER_ERROR, INVALID_EMAIL, UNEXPECTED_ERROR } from '../../constants/appErrors';
-import { ALERT_SUCCESS, ALERT_ERROR } from '../../constants/alertStyles';
+import ENDPOINT from '../../../constants/endpoint';
+import { REGISTER_ERROR, INVALID_EMAIL, UNEXPECTED_ERROR } from '../../../constants/appErrors';
+import { ALERT_SUCCESS, ALERT_ERROR } from '../../../constants/alertStyles';
 import { actions as loadingActions } from '../ducks/loading';
 import { actions as alertActions } from '../ducks/alert';
-import validateEmail from '../../utils/validateEmail';
-import history from '../../utils/history';
+import validateEmail from '../../../utils/validateEmail';
+import history from '../../../utils/history';
 import Error from './error';
 
 class Register extends Component {
@@ -18,7 +18,6 @@ class Register extends Component {
         this.state = {
             countries: [],
             selectedCountry: '',
-            countryCode: '',
             states: [],
             selectedState: '',
             cities: [],
@@ -53,11 +52,9 @@ class Register extends Component {
     getStates(e) {
         const { clearAlert } = this.props;
         clearAlert();
-        const country = e.target.value.split(',');
-        const countryCode = country[0];
+        const countryCode = e.target.value;
         this.setState({
-            selectedCountry: country[1],
-            countryCode,
+            selectedCountry: e.target.name,
         });
         const { toggleLoading } = this.props;
         toggleLoading();
@@ -79,14 +76,14 @@ class Register extends Component {
         clearAlert();
         const region = e.target.value;
         const {
-            countryCode,
+            selectedCountry,
         } = this.state;
         this.setState({
             selectedState: region,
         });
         const { toggleLoading } = this.props;
         toggleLoading();
-        axios.get(`${ENDPOINT}/getCities/${countryCode}/${region}`)
+        axios.get(`${ENDPOINT}/getCities/${selectedCountry}/${region}`)
             .then((response) => {
                 this.setState({
                     cities: response.data,
@@ -248,7 +245,7 @@ class Register extends Component {
                             </option>
                             {
                                 countries.map(country => (
-                                    <option key={country.code} name={country.name} value={[country.code, country.name]}>
+                                    <option key={country.code} name={country.name} value={country.code}>
                                         {country.name}
                                     </option>
                                 ))

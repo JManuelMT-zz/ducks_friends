@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { ducksFeedingActivities as initialState } from '../config/initialState.json';
-import { ALERT_ERROR } from '../../constants/alertStyles';
+import { ALERT_ERROR } from '../../../constants/alertStyles';
 import { actions as alertActions } from './alert';
-import ENDPOINT from '../../constants/endpoint';
+import ENDPOINT from '../../../constants/endpoint';
 import { actions as spinnerActions } from './loading';
 
 const ACTION_TYPES = {

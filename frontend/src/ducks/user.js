@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { user as initialState } from '../config/initialState.json';
-import ENDPOINT from '../../constants/endpoint';
+import ENDPOINT from '../../../constants/endpoint';
 import { actions as alertActions } from './alert';
 import { actions as spinnerActions } from './loading';
-import { ALERT_ERROR } from '../../constants/alertStyles';
-import { UNEXPECTED_ERROR } from '../../constants/appErrors';
-import history from '../../utils/history';
+import { ALERT_ERROR } from '../../../constants/alertStyles';
+import { UNEXPECTED_ERROR } from '../../../constants/appErrors';
+import history from '../../../utils/history';
 
 const ACTION_TYPES = {
     SET_USER: 'SET_USER',
@@ -68,7 +68,7 @@ const logout = () => (dispatch) => {
                 type: ACTION_TYPES.SET_USER,
                 user,
             });
-            localStorage.removeItem('user');
+            localStorage.removeItem('isLoggedIn');
             history.push('/login');
             dispatch(spinnerActions.toggleLoading());
         })

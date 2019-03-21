@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import axios from 'axios';
-import ENDPOINT from '../../constants/endpoint';
-import { REGISTER_ERROR, UNEXPECTED_ERROR } from '../../constants/appErrors';
-import { ALERT_SUCCESS, ALERT_ERROR } from '../../constants/alertStyles';
+import ENDPOINT from '../../../constants/endpoint';
+import { REGISTER_ERROR, UNEXPECTED_ERROR } from '../../../constants/appErrors';
+import { ALERT_SUCCESS, ALERT_ERROR } from '../../../constants/alertStyles';
 import { actions as loadingActions } from '../ducks/loading';
 import { actions as alertActions } from '../ducks/alert';
-import history from '../../utils/history';
+import history from '../../../utils/history';
 
 class Activities extends Component {
     constructor(props) {
@@ -16,9 +16,7 @@ class Activities extends Component {
             parkName: '',
             food: '',
             foodQuantity: '',
-            ducksNumber: '',
             date: '',
-            time: '',
         };
         this.registerActivity = this.registerActivity.bind(this);
     }
@@ -30,8 +28,6 @@ class Activities extends Component {
             food,
             foodQuantity,
             date,
-            time,
-            ducksNumber,
         } = this.state;
         const {
             toggleLoading,
@@ -39,7 +35,7 @@ class Activities extends Component {
         } = this.props;
         toggleLoading();
         const { setAlert } = this.props;
-        if (!parkName || !food || !foodQuantity || !date || !time || !ducksNumber) {
+        if (!parkName || !food || !foodQuantity || !date) {
             const alert = {
                 styleClass: ALERT_ERROR,
                 description: REGISTER_ERROR,
@@ -55,9 +51,7 @@ class Activities extends Component {
                     food,
                     foodQuantity,
                     date,
-                    time,
                     userId,
-                    ducksNumber,
                 },
                 withCredentials: true,
             })
@@ -100,10 +94,7 @@ class Activities extends Component {
                     <br />
                 </div>
                 <form className="form-row">
-                    <div className="form-group col-md-4 vertical_space">
-                        <span className="act_labels">
-                            Park name
-                        </span>
+                    <div className="form-group col-md-6 vertical_space">
                         <input
                             type="text"
                             name="park"
@@ -116,10 +107,7 @@ class Activities extends Component {
                             }}
                         />
                     </div>
-                    <div className="form-group col-md-4 vertical_space">
-                        <span className="act_labels">
-                            Food
-                        </span>
+                    <div className="form-group col-md-6 vertical_space">
                         <input
                             type="text"
                             name="food"
@@ -132,10 +120,7 @@ class Activities extends Component {
                             }}
                         />
                     </div>
-                    <div className="form-group col-md-4 vertical_space">
-                        <span className="act_labels">
-                            Food quantity
-                        </span>
+                    <div className="form-group col-md-6 vertical_space">
                         <input
                             type="number"
                             name="food_quantity"
@@ -148,26 +133,7 @@ class Activities extends Component {
                             }}
                         />
                     </div>
-                    <div className="form-group col-md-4 vertical_space">
-                        <span className="act_labels">
-                            Number of ducks
-                        </span>
-                        <input
-                            type="number"
-                            name="ducks_number"
-                            className="form-control"
-                            placeholder="Number of ducks"
-                            onChange={(e) => {
-                                this.setState({
-                                    ducksNumber: e.target.value,
-                                });
-                            }}
-                        />
-                    </div>
-                    <div className="form-group col-md-4 vertical_space">
-                        <span className="act_labels">
-                            Date
-                        </span>
+                    <div className="form-group col-md-6 vertical_space">
                         <input
                             type="date"
                             name="date"
@@ -176,22 +142,6 @@ class Activities extends Component {
                             onChange={(e) => {
                                 this.setState({
                                     date: e.target.value,
-                                });
-                            }}
-                        />
-                    </div>
-                    <div className="form-group col-md-4 vertical_space">
-                        <span className="act_labels">
-                            Time
-                        </span>
-                        <input
-                            type="time"
-                            name="time"
-                            className="form-control"
-                            placeholder="time"
-                            onChange={(e) => {
-                                this.setState({
-                                    time: e.target.value,
                                 });
                             }}
                         />
