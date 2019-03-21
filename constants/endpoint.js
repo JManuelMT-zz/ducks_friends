@@ -1,2 +1,2 @@
-const ENDPOINT = 'https://crazyducks.herokuapp.com';
+const ENDPOINT = 'http://localhost:3001';
 export default ENDPOINT;

@@ -36,7 +36,7 @@ app.use(session({
     secret: 'secretDucks',
     saveUninitialized: false,
     resave: false,
-    cookie: { secure: true },
+    cookie: { secure: false },
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
 }));
 
