@@ -12,7 +12,6 @@ import Alert from './alert';
 import Header from './header';
 import Spinner from './spinner';
 import history from '../../utils/history';
-import ENDPOINT from '../../constants/endpoint';
 import { actions as userActions } from '../ducks/user';
 
 class App extends Component {
@@ -22,7 +21,7 @@ class App extends Component {
             const user = JSON.parse(userLocal);
             const { setUser } = this.props;
             setUser(user);
-            // history.push('/home');
+            history.push('/home');
         }
     }
 
@@ -42,7 +41,7 @@ class App extends Component {
                     <div className="row">
                         <div className="col-sm-12">
                             <Alert alertMessage={alert.description} alertStyle={alert.styleClass} />
-                            <Router history={history}>
+                            <Router history={history} basename="/login">
                                 <Switch>
                                     <Route path="/login" component={Login} />
                                     <Route path="/register" component={Register} />

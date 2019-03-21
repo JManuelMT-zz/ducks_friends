@@ -3,11 +3,11 @@ import { Route, Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
     const isLoggedIn = user.loginSuccesful;
     return (
         <Route
-            path="/home"
+            path="/"
             {...rest}
             render={props => (
                 isLoggedIn
