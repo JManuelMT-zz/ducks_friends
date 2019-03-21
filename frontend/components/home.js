@@ -19,7 +19,12 @@ class Home extends Component {
     }
 
     render() {
-        const { activities, getActivities, userId } = this.props;
+        const {
+            activities,
+            getActivities,
+            userId,
+            clearAlert,
+        } = this.props;
         return (
             <div className="table_container col-sm-12 col-md-10 offset-md-1 col-lg-9 offset-lg-1" align="center">
                 <h4>
@@ -98,10 +103,24 @@ class Home extends Component {
                     </tbody>
                 </table>
                 <div className="form-row">
-                    <button type="button" onClick={() => getActivities()} className="btn btn-primary btn-lg col btn_home">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            clearAlert();
+                            getActivities();
+                        }}
+                        className="btn btn-primary btn-lg col btn_home"
+                    >
                         See All
                     </button>
-                    <button type="button" onClick={() => getActivities(userId)} className="btn btn-secondary col btn-lg btn_home">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            clearAlert();
+                            getActivities(userId);
+                        }}
+                        className="btn btn-secondary col btn-lg btn_home"
+                    >
                         My Activities
                     </button>
                     <Link className="col btn_home" to="/registerActivity">
