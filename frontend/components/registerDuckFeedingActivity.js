@@ -17,6 +17,7 @@ class Activities extends Component {
             food: '',
             foodQuantity: '',
             date: '',
+            time: '',
         };
         this.registerActivity = this.registerActivity.bind(this);
     }
@@ -28,6 +29,7 @@ class Activities extends Component {
             food,
             foodQuantity,
             date,
+            time,
         } = this.state;
         const {
             toggleLoading,
@@ -35,7 +37,7 @@ class Activities extends Component {
         } = this.props;
         toggleLoading();
         const { setAlert } = this.props;
-        if (!parkName || !food || !foodQuantity || !date) {
+        if (!parkName || !food || !foodQuantity || !date || !time) {
             const alert = {
                 styleClass: ALERT_ERROR,
                 description: REGISTER_ERROR,
@@ -51,6 +53,7 @@ class Activities extends Component {
                     food,
                     foodQuantity,
                     date,
+                    time,
                     userId,
                 },
                 withCredentials: true,
@@ -94,7 +97,10 @@ class Activities extends Component {
                     <br />
                 </div>
                 <form className="form-row">
-                    <div className="form-group col-md-6 vertical_space">
+                    <div className="form-group col-md-4 vertical_space">
+                        <span className="act_labels">
+                            Park name
+                        </span>
                         <input
                             type="text"
                             name="park"
@@ -107,7 +113,10 @@ class Activities extends Component {
                             }}
                         />
                     </div>
-                    <div className="form-group col-md-6 vertical_space">
+                    <div className="form-group col-md-4 vertical_space">
+                        <span className="act_labels">
+                            Food
+                        </span>
                         <input
                             type="text"
                             name="food"
@@ -120,7 +129,10 @@ class Activities extends Component {
                             }}
                         />
                     </div>
-                    <div className="form-group col-md-6 vertical_space">
+                    <div className="form-group col-md-4 vertical_space">
+                        <span className="act_labels">
+                            Food quantity
+                        </span>
                         <input
                             type="number"
                             name="food_quantity"
@@ -134,6 +146,9 @@ class Activities extends Component {
                         />
                     </div>
                     <div className="form-group col-md-6 vertical_space">
+                        <span className="act_labels">
+                            Date
+                        </span>
                         <input
                             type="date"
                             name="date"
@@ -142,6 +157,22 @@ class Activities extends Component {
                             onChange={(e) => {
                                 this.setState({
                                     date: e.target.value,
+                                });
+                            }}
+                        />
+                    </div>
+                    <div className="form-group col-md-6 vertical_space">
+                        <span className="act_labels">
+                            Time
+                        </span>
+                        <input
+                            type="time"
+                            name="time"
+                            className="form-control"
+                            placeholder="time"
+                            onChange={(e) => {
+                                this.setState({
+                                    time: e.target.value,
                                 });
                             }}
                         />

@@ -31,6 +31,7 @@ exports.registerUser = (req, res) => {
 exports.registerFeedingActivity = (req, res) => {
     const duckFeedingActivity = {
         date: req.body.date,
+        time: req.body.time,
         park_name: req.body.parkName,
         food: req.body.food,
         food_quantity: req.body.foodQuantity,

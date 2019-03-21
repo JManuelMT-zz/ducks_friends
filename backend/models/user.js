@@ -35,6 +35,7 @@ const userSchema = new Schema({
     },
     ducks_feeding: [{
         date: Date,
+        time: String,
         park_name: String,
         food: String,
         food_quantity: Number,

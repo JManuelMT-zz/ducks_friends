@@ -50,12 +50,15 @@ class Home extends Component {
                             <th scope="col">
                                 Date
                             </th>
+                            <th scope="col">
+                                Time
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            activities.map((act) => {
-                                return act.ducks_feeding.map(activity => (
+                            activities.map(act => (
+                                act.ducks_feeding.map(activity => (
                                     <tr key={activity._id}>
                                         <td>
                                             {act.country}
@@ -78,9 +81,12 @@ class Home extends Component {
                                         <td>
                                             {activity.date.substr(0, 10)}
                                         </td>
+                                        <td>
+                                            {activity.time}
+                                        </td>
                                     </tr>
-                                ));
-                            })
+                                ))
+                            ))
                         }
                     </tbody>
                 </table>
