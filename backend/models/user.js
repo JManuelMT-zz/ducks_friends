@@ -39,6 +39,7 @@ const userSchema = new Schema({
         park_name: String,
         food: String,
         food_quantity: Number,
+        ducks_number: Number,
     }],
 });
 

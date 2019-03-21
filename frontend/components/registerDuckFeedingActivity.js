@@ -16,6 +16,7 @@ class Activities extends Component {
             parkName: '',
             food: '',
             foodQuantity: '',
+            ducksNumber: '',
             date: '',
             time: '',
         };
@@ -30,6 +31,7 @@ class Activities extends Component {
             foodQuantity,
             date,
             time,
+            ducksNumber,
         } = this.state;
         const {
             toggleLoading,
@@ -37,7 +39,7 @@ class Activities extends Component {
         } = this.props;
         toggleLoading();
         const { setAlert } = this.props;
-        if (!parkName || !food || !foodQuantity || !date || !time) {
+        if (!parkName || !food || !foodQuantity || !date || !time || !ducksNumber) {
             const alert = {
                 styleClass: ALERT_ERROR,
                 description: REGISTER_ERROR,
@@ -55,6 +57,7 @@ class Activities extends Component {
                     date,
                     time,
                     userId,
+                    ducksNumber,
                 },
                 withCredentials: true,
             })
@@ -145,7 +148,23 @@ class Activities extends Component {
                             }}
                         />
                     </div>
-                    <div className="form-group col-md-6 vertical_space">
+                    <div className="form-group col-md-4 vertical_space">
+                        <span className="act_labels">
+                            Number of ducks
+                        </span>
+                        <input
+                            type="number"
+                            name="ducks_number"
+                            className="form-control"
+                            placeholder="Number of ducks"
+                            onChange={(e) => {
+                                this.setState({
+                                    ducksNumber: e.target.value,
+                                });
+                            }}
+                        />
+                    </div>
+                    <div className="form-group col-md-4 vertical_space">
                         <span className="act_labels">
                             Date
                         </span>
@@ -161,7 +180,7 @@ class Activities extends Component {
                             }}
                         />
                     </div>
-                    <div className="form-group col-md-6 vertical_space">
+                    <div className="form-group col-md-4 vertical_space">
                         <span className="act_labels">
                             Time
                         </span>

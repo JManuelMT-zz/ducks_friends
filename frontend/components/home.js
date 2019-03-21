@@ -21,9 +21,10 @@ class Home extends Component {
     render() {
         const { activities, getActivities, userId } = this.props;
         return (
-            <div className="table_container col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2" align="center">
+            <div className="table_container col-sm-12 col-md-10 offset-md-1 col-lg-9 offset-lg-1" align="center">
                 <h4>
-                    Welcome! this is the current register that we have about ducks feeding in the world.
+                    Welcome! this is the current register that we have
+                    about ducks feeding in the world.
                     Please, help us to keep improving.
                 </h4>
                 <table id="myTable" className="table table-bordered table-striped">
@@ -46,6 +47,9 @@ class Home extends Component {
                             </th>
                             <th scope="col">
                                 Quantity (grams)
+                            </th>
+                            <th scope="col">
+                               #Ducks
                             </th>
                             <th scope="col">
                                 Date
@@ -77,6 +81,9 @@ class Home extends Component {
                                         </td>
                                         <td>
                                             {activity.food_quantity}
+                                        </td>
+                                        <td>
+                                            {activity.ducks_number}
                                         </td>
                                         <td>
                                             {activity.date.substr(0, 10)}

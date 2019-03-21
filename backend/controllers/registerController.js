@@ -35,6 +35,7 @@ exports.registerFeedingActivity = (req, res) => {
         park_name: req.body.parkName,
         food: req.body.food,
         food_quantity: req.body.foodQuantity,
+        ducks_number: req.body.ducksNumber,
     };
     const { userId } = req.body;
     User.findById(userId).exec()
